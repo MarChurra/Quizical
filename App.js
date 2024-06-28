@@ -20,13 +20,6 @@ export default function App() {
     const [gameWon, setGameWon] = useState(false)
     const [showNotification, setShowNotification] = React.useState(false)
 
-    function cheat() {
-        questions.forEach((question) => {
-            console.log(question.correct_answer)
-        })
-    }
-    cheat()
-
     //Fetch session token
     useEffect(() => {
         if (gameStarted && !sessionToken) {

@@ -898,14 +898,9 @@ function App() {
         showNotification = _React$useState2[0],
         setShowNotification = _React$useState2[1];
 
-    function cheat() {
-        questions.forEach(function (question) {
-            console.log(question.correct_answer);
-        });
-    }
-    cheat();
-
     //Fetch session token
+
+
     (0, _react.useEffect)(function () {
         if (gameStarted && !sessionToken) {
             fetchSessionToken();
