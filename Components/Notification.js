@@ -1,21 +1,26 @@
 import React from "react";
 
 export default function Notification({ showNotification, onHide }) {
-    const [animate, setAnimate] = React.useState(false);
-    let timer, hideTimer; 
+    const [animate, setAnimate] = React.useState(showNotification);
+    let timer, hideTimer;
+    let isNotificationActive = false;
+    const prevShowNotificationRef = React.useRef(false)
 
     React.useEffect(() => {
-        if (showNotification) {
+        if (showNotification && !isNotificationActive && showNotification !== prevShowNotificationRef.current) {
+            isNotificationActive = true;
             setAnimate(true);
             timer = setTimeout(() => {
                 setAnimate(false);
-                hideTimer = setTimeout(onHide, 2500);
-            }, 2000);
+                hideTimer = setTimeout(onHide, 1750);
+            }, 1500);
             return () => {
                 clearTimeout(timer);
-                clearTimeout(hideTimer); 
+                clearTimeout(hideTimer);
+                isNotificationActive = false;
             };
         }
+        prevShowNotificationRef.current = showNotification;
     }, [showNotification, onHide]);
 
     return (

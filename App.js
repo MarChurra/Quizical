@@ -29,10 +29,10 @@ export default function App() {
 
     //Fetch session token
     useEffect(() => {
-        if (gameStarted) {
+        if (gameStarted && !sessionToken) {
             fetchSessionToken();
         }
-    }, [gameStarted]);
+    }, [gameStarted, sessionToken]);
 
     function fetchSessionToken() {
         setLoading(true);
@@ -65,7 +65,7 @@ export default function App() {
 
     //Manage the selected Options
     const handleAnswerChange = (questionIndex, answer) => {
-        setSelectedAnswers((prevAnswers) => ({ ...prevAnswers, [questionIndex]: answer }));
+        setSelectedAnswers((prevAnswers) => Object.assign({}, prevAnswers, { [questionIndex]: answer }));
     };
 
     //Check the Results 
@@ -74,6 +74,7 @@ export default function App() {
             setShowNotification(true);
             return;
         }
+        setShowNotification(false);
 
         let newScore = 0;
 
@@ -128,7 +129,7 @@ export default function App() {
         return <Loader />;
     } else {
         return gameStarted && questions ? (
-            <>
+            <div>
                 {showNotification && <Notification
                     showNotification={showNotification}
                     onHide={() => setShowNotification(false)}
@@ -145,10 +146,10 @@ export default function App() {
                     score={score}
                     gameWon={gameWon}
                 />
-            </>
+            </div>
 
         ) : (
-                <Opening startGame={startGame} setNumQuestions={(amount) => questionAmount(amount)} />
-            );
+            <Opening startGame={startGame} setNumQuestions={(amount) => questionAmount(amount)} />
+        );
     }
 }
