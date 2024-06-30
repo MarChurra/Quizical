@@ -907,6 +907,13 @@ function App() {
         }
     }, [gameStarted, sessionToken]);
 
+    function cheat() {
+        questions.forEach(function (question) {
+            console.log(question.correct_answer);
+        });
+    }
+    cheat();
+
     function fetchSessionToken() {
         setLoading(true);
         fetch("https://opentdb.com/api_token.php?command=request").then(function (res) {

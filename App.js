@@ -27,6 +27,7 @@ export default function App() {
         }
     }, [gameStarted, sessionToken]);
 
+
     function fetchSessionToken() {
         setLoading(true);
         fetch("https://opentdb.com/api_token.php?command=request")
